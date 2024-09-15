@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.app.lokaljobs.di.JobServiceModule
 import com.app.lokaljobs.data.local.model.JobEntity
+import com.app.lokaljobs.di.JobsModule
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,15 +15,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class JobNavigatorViewModel : ViewModel() {
-    private val getJobsUseCase = JobServiceModule.GetJobsUseCase
-    private val bookmarkUseCases = JobServiceModule.BookmarkJobUseCases
+    private val jobsUseCase = JobsModule.JobsUseCase
 
-    val jobs: Flow<PagingData<JobEntity>> = getJobsUseCase().cachedIn(viewModelScope)
+    val jobs: Flow<PagingData<JobEntity>> = jobsUseCase.getJobs().cachedIn(viewModelScope)
     private var _bookmarkedJobs = MutableStateFlow<List<JobEntity>>(emptyList())
     val bookmarkedJobs: StateFlow<List<JobEntity>> get() = _bookmarkedJobs
 
     init {
-        bookmarkUseCases.getJobFlow().onEach { list ->
+        jobsUseCase.getBookmarks().onEach { list ->
             _bookmarkedJobs.update { list }
         }.launchIn(viewModelScope)
     }
@@ -32,8 +31,8 @@ class JobNavigatorViewModel : ViewModel() {
         viewModelScope.launch {
             val isBookmarked =
                 bookmarkedJobs.value.any { bookmarkedJob -> bookmarkedJob.id == job.id }
-            if (isBookmarked) bookmarkUseCases.deleteJob(job)
-            else bookmarkUseCases.upsertJob(job)
+            if (isBookmarked) jobsUseCase.deleteBookmark(job)
+            else jobsUseCase.upsertBookmark(job)
         }
     }
 
