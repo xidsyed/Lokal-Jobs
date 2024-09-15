@@ -1,6 +1,6 @@
 package com.app.lokaljobs
 
-import com.app.lokaljobs.data.remote.JobAPI
+import com.app.lokaljobs.data.remote.JobService
 import com.app.lokaljobs.data.local.toJobs
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
@@ -14,22 +14,22 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class ExampleUnitTest {
 
-    private val jobApi = Retrofit.Builder()
+    private val jobService = Retrofit.Builder()
         .baseUrl("https://testapi.getlokalapp.com/common/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(JobAPI::class.java)
+        .create(JobService::class.java)
 
-    private val jobsDto = runBlocking{ jobApi.getResponse(1) }
+    private val jobResponse = runBlocking{ jobService.getResponse(1) }
 
     @Test
     fun testApi() {
-        assert(jobsDto!=null)
+        assert(jobResponse!=null)
     }
 
     @Test
     fun testJobModel() {
-        val list = jobsDto!!.toJobs()
+        val list = jobResponse!!.toJobs()
         println(list.joinToString("\n\n"))
     }
 

@@ -4,12 +4,12 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.app.lokaljobs.data.remote.model.JobsDto
+import com.app.lokaljobs.data.remote.model.JobResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity
-data class Job(
+data class JobEntity(
     @PrimaryKey
     val id : Int,
     val title: String,
@@ -47,27 +47,27 @@ data class Job(
     }
 }
 
-fun JobsDto.toJobs(): List<Job> = results.mapNotNull { result ->
+fun JobResponse.toJobs(): List<JobEntity> = jobResults.mapNotNull { jobResultModel ->
     runCatching {
-        result.run {
-            Job(
-                id = id,
-                title = title,
-                categoryId = job_category_id,
-                category = job_category,
-                location = job_location_slug,
-                minSalary = salary_min,
-                maxSalary = salary_max,
-                experience = primary_details.Experience,
-                feesCharged = primary_details.Fees_Charged.let {
+        jobResultModel.run {
+            JobEntity(
+                id = jobId,
+                title = jobTitle,
+                categoryId = jobCategoryId,
+                category = jobCategoryName,
+                location = jobLocationSlug,
+                minSalary = salaryMin,
+                maxSalary = salaryMax,
+                experience = primaryDetails.experience,
+                feesCharged = primaryDetails.feesCharged.let {
                     if (it == "-1") null else it.toInt()
                 },
-                openingCount = openings_count,
-                createdOn = created_on,
-                companyName = company_name,
-                customTelLink = custom_link,
-                whatsappNumber = whatsapp_no,
-                otherDetails = other_details,
+                openingCount = openingsCount,
+                createdOn = createdOn,
+                companyName = companyName,
+                customTelLink = customLink,
+                whatsappNumber = whatsappNumber,
+                otherDetails = otherDetails,
             )
         }
     }.getOrNull()

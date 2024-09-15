@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation
+package com.app.lokaljobs.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,14 +19,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.app.lokaljobs.data.local.Job
-import com.app.lokaljobs.presentation.screens.BookmarkScreen
-import com.app.lokaljobs.presentation.screens.DetailScreen
-import com.app.lokaljobs.presentation.screens.HomeScreen
-import com.app.lokaljobs.presentation.screens.JobNavigatorViewModel
-import com.app.lokaljobs.presentation.screens.components.BottomNavigation
-import com.app.lokaljobs.presentation.screens.components.BottomNavigationItem
-import com.app.lokaljobs.presentation.screens.components.NavigatorTopBar
+import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.presentation.screens.bookmark.BookmarkScreen
+import com.app.lokaljobs.presentation.screens.details.DetailScreen
+import com.app.lokaljobs.presentation.screens.home.HomeScreen
+import com.app.lokaljobs.presentation.common.BottomNavigation
+import com.app.lokaljobs.presentation.common.BottomNavigationItem
+import com.app.lokaljobs.presentation.common.NavigatorTopBar
 import com.cinderella.lokaljobs.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -114,7 +113,7 @@ fun JobNavigator() {
             }
 
             composable(route = Route.DetailScreen.route) {
-                val job = navController.previousBackStackEntry?.savedStateHandle?.get<Job?>("job")
+                val job = navController.previousBackStackEntry?.savedStateHandle?.get<JobEntity?>("job")
                 job?.let {
                     DetailScreen(job)
                 }
@@ -141,7 +140,7 @@ fun navigateToBottom(navController: NavController, route: String) {
 
 }
 
-private fun navigateToDetails(navController: NavController, job: Job) {
+private fun navigateToDetails(navController: NavController, job: JobEntity) {
     navController.currentBackStackEntry?.savedStateHandle?.set("job", job)
     navController.navigate(Route.DetailScreen.route)
 }

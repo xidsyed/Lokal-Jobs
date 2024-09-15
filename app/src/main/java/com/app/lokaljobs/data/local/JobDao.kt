@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.Flow
 interface JobDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(job: Job)
+    suspend fun upsert(job: JobEntity)
 
     @Delete
-    suspend fun delete(job: Job)
+    suspend fun delete(job: JobEntity)
 
-    @Query("SELECT * FROM Job")
-    fun selectJobs(): Flow<List<Job>>
+    @Query("SELECT * FROM JobEntity")
+    fun selectJobs(): Flow<List<JobEntity>>
 
-    @Query("SELECT * FROM Job where id = :id")
-    suspend fun selectJob(id: Int): Job?
+    @Query("SELECT * FROM JobEntity where id = :id")
+    suspend fun selectJob(id: Int): JobEntity?
 
 }
