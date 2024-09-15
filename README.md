@@ -1,3 +1,15 @@
+## Table of Contents
+1. [Base Requirements](#-base-requirements)
+2. [Additional Features](#-additional-features)
+3. [Key Architecture Features](#-key-architecture-features)
+4. [Decisions](#-decisions)
+5. [Showcase](#-showcase)
+6. [Video](#-video)
+7. [Development Journey](#-development-journey)
+8. [Design Assets](#-design-assets)
+9. [Thoughts](#-thoughts)
+
+<br><br>
 # 🫡 Base Requirements
 
 
@@ -10,7 +22,7 @@
     - [x] Persisted on Local Storage  |  **ASSUMPTION : No Updates / Invalidation**
 
 
----
+<br><br>
 
 # 🌟 Additional Features
 Due to time constraints, many additonal key features could not be added within the time limit:
@@ -45,8 +57,9 @@ Due to time constraints, many additonal key features could not be added within t
 - [ ] Dark Theme
 - [ ] Hardcoded Dimension and Color Values
 
+<br><br>
 
----
+
 #  ⭐ Key Architecture Features
 
 - UI built with Jetpack Compose.
@@ -70,6 +83,7 @@ Due to time constraints, many additonal key features could not be added within t
 3. However since necessary changes have been made to comply further with clean architecture and official guidelines by refactoring the package structure, naming conventions etc.
 4. Type Safe Navigation with Safe Args wasn't opted for, since it involved wrestling with Android Studio and gradle to get the correct dependencies installed.
 
+<br><br>
 # ✨ Showcase
 
 | ![](https://i.imgur.com/JbePGrV.png)<br><br> | ![](https://i.imgur.com/njYV3Gi.png)<br> |
@@ -77,12 +91,13 @@ Due to time constraints, many additonal key features could not be added within t
 | ![](https://i.imgur.com/me2nAQS.jpeg)<br>    |                                          |
 | <br>                                         |                                          |
 
-## Video
+<br><br>
+## 🎥 Video
 
 https://github.com/user-attachments/assets/1858ce88-408c-46bd-8425-478c79d3d5e6
 
 
-
+<br><br>
 # 📃 Development Journey 
 - [x] Fimga Designs ~ 6hrs
     - [x] JobCard
@@ -107,12 +122,13 @@ https://github.com/user-attachments/assets/1858ce88-408c-46bd-8425-478c79d3d5e6
 - [x] Error and Loading State Handling  ~ 30 mins
 - [x] Misc ~ 2-3 hrs
 
-
-# 📦 Assets
+<br><br>
+# 📦 Design Assets
 ![|350](https://i.imgur.com/G8mKcgJ.jpeg)
 
 - [Figma file](docs/LokalJobDesign.fig)
 
+<br><br>
 ## 💭 Thoughts
 - Should've used git to initialise repo and made changes. Git is a better proof of process
 - Took longer designing and implementing the designs than initially anticipated. 
