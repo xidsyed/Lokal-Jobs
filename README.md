@@ -5,7 +5,7 @@
     - [x] Each card > Title, Location, Salary, Phone Data
     - [x] Clicking on a card > Card Screen
 - [x] Bookmarks Screen
-    - [x] Persisted on Local Storage  |  **ASSUMPTION : No Updates / Invalidation **
+    - [x] Persisted on Local Storage  |  **ASSUMPTION : No Updates / Invalidation**
 
 
 ---
@@ -85,8 +85,8 @@ https://github.com/user-attachments/assets/1858ce88-408c-46bd-8425-478c79d3d5e6
 
 ## Thoughts
 - Taken longer than should have
-- Took too long to design
+- Designing components form scratch is time consuming
 - Other time consuming factors
     - Trying new apis that require wrestling with gradle
-    - Pexel perfecting designs
+    - Pexel perfecting designs and implementation 
     - Optimisations
