@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation.screens.components
+package com.app.lokaljobs.presentation.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
@@ -16,9 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import com.app.lokaljobs.Dimens
-import com.app.lokaljobs.presentation.Route
+import com.app.lokaljobs.presentation.navigation.Route
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.LokalJobsTheme

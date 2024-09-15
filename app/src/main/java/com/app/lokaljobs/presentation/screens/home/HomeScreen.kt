@@ -1,17 +1,17 @@
-package com.app.lokaljobs.presentation.screens
+package com.app.lokaljobs.presentation.screens.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.paging.compose.LazyPagingItems
-import com.app.lokaljobs.data.local.Job
-import com.app.lokaljobs.presentation.screens.components.JobCardList
+import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.presentation.common.JobCardList
 
 @Composable
 fun HomeScreen(
-    jobItems: LazyPagingItems<Job>,
-    bookmarkedJobs: List<Job>,
-    onNavigateToDetails: (Job) -> Unit,
-    onBookmarkClick: (Job) -> Unit
+    jobItems: LazyPagingItems<JobEntity>,
+    bookmarkedJobs: List<JobEntity>,
+    onNavigateToDetails: (JobEntity) -> Unit,
+    onBookmarkClick: (JobEntity) -> Unit
 ) {
     Column {
         JobCardList(

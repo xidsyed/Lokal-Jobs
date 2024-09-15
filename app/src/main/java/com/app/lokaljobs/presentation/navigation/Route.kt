@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation
+package com.app.lokaljobs.presentation.navigation
 
 sealed class Route(val route: String) {
     object JobNavigator : Route(route = "jobNavigator")

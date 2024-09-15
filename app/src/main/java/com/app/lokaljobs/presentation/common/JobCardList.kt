@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation.screens.components
+package com.app.lokaljobs.presentation.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,17 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.app.lokaljobs.data.local.Job
+import com.app.lokaljobs.data.local.JobEntity
 import com.app.lokaljobs.presentation.screens.EmptyScreen
 import com.app.lokaljobs.ui.theme.LightGray
 
 @Composable
 fun JobCardList(
-    jobItems: LazyPagingItems<Job>,
-    bookmarkedJobs: List<Job>,
+    jobItems: LazyPagingItems<JobEntity>,
+    bookmarkedJobs: List<JobEntity>,
     isJobCardHighlighted: Boolean,
-    onNavigateToDetails: (Job) -> Unit,
-    onBookmarkClick: (Job) -> Unit
+    onNavigateToDetails: (JobEntity) -> Unit,
+    onBookmarkClick: (JobEntity) -> Unit
 ) {
 
     val pagingResultReceived = handlePagingResult(jobItems)
@@ -50,7 +50,7 @@ fun JobCardList(
 }
 
 @Composable
-private fun handlePagingResult(jobItems: LazyPagingItems<Job>): Boolean {
+private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
     val loadState = jobItems.loadState
 
     // get error if any of the load states has an error
@@ -89,10 +89,10 @@ private fun handlePagingResult(jobItems: LazyPagingItems<Job>): Boolean {
 
 @Composable
 fun BookmarkJobCardList(
-    jobList: List<Job>,
+    jobList: List<JobEntity>,
     isJobCardHighlighted: Boolean,
-    onNavigateToDetails: (Job) -> Unit,
-    onBookmarkClick: (Job) -> Unit
+    onNavigateToDetails: (JobEntity) -> Unit,
+    onBookmarkClick: (JobEntity) -> Unit
 ) {
 
     val isEmpty = if (jobList.isEmpty()) {

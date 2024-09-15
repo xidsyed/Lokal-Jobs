@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation.screens.components
+package com.app.lokaljobs.presentation.common
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.app.lokaljobs.data.local.Job
+import com.app.lokaljobs.data.local.JobEntity
 import com.app.lokaljobs.presentation.getDummyJob
 import com.app.lokaljobs.presentation.getTime
 import com.app.lokaljobs.ui.theme.DarkGray
@@ -41,11 +41,11 @@ import com.cinderella.lokaljobs.R
 
 @Composable
 fun JobCard(
-    job: Job,
+    job: JobEntity,
     isBookmarked: Boolean,
     isHighlighted: Boolean = false,
-    onJobCardClick: (Job) -> Unit,
-    onBookmarkIconClick: (Job) -> Unit
+    onJobCardClick: (JobEntity) -> Unit,
+    onBookmarkIconClick: (JobEntity) -> Unit
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),

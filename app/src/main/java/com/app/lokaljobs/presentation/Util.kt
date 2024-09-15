@@ -1,13 +1,14 @@
 package com.app.lokaljobs.presentation
 
-import com.app.lokaljobs.data.local.Job
+import com.app.lokaljobs.data.local.JobEntity
 import com.app.lokaljobs.data.local.JobCategory
-import com.app.lokaljobs.presentation.screens.components.BottomNavigationItem
+import com.app.lokaljobs.presentation.common.BottomNavigationItem
+import com.app.lokaljobs.presentation.navigation.Route
 import com.cinderella.lokaljobs.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-fun Job.getTime(): String? {
+fun JobEntity.getTime(): String? {
     return runCatching {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault())
         val date = simpleDateFormat.parse(createdOn) // Parse the ISO 8601 format
@@ -17,11 +18,11 @@ fun Job.getTime(): String? {
 }
 
 
-fun Job.getCategory(): JobCategory {
+fun JobEntity.getCategory(): JobCategory {
     return JobCategory.fromId(categoryId)
 }
 
-fun getDummyJob() = Job(
+fun getDummyJob() = JobEntity(
     id = 623051,
     title = "Faculty, High School, Primary & Pre-Primary Teachers, RROs, Marketing Executives wanted for Hms, IIT/ NEET Foundation",
     location = "Suryapet",

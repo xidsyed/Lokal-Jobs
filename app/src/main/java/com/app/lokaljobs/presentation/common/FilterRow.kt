@@ -1,8 +1,7 @@
-package com.app.lokaljobs.presentation.screens
+package com.app.lokaljobs.presentation.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
@@ -25,20 +24,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import com.app.lokaljobs.data.local.Job
-import com.app.lokaljobs.presentation.getDummyJob
-import com.app.lokaljobs.presentation.screens.components.BookmarkJobCardList
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Highlight
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 
-@Composable
-fun BookmarkScreen(jobList: List<Job>, onNavigateToDetails: (Job) -> Unit, onBookmarkClick : (Job) -> Unit) {
-    Column {
-        FilterRow(listOf("Created", "Bookmarked"), 0)
-        BookmarkJobCardList(jobList = jobList, isJobCardHighlighted = true, onNavigateToDetails, onBookmarkClick = onBookmarkClick )
-    }
-}
 
 @Composable
 fun FilterRow(filterList: List<String>, selected: Int, modifier: Modifier = Modifier) {
@@ -93,39 +82,11 @@ fun FilterRow(filterList: List<String>, selected: Int, modifier: Modifier = Modi
             )
 
         }
-        /*
-                InputChip(
-                    label = {
-                        Text(
-                            text = "Bookmarked",
-                            color = Color(0xff2e2e2e),
-                            textAlign = TextAlign.Center,
-                            lineHeight = 1.43.em,
-                            style = MaterialTheme.typography.labelLarge,
-                            modifier = Modifier
-                                .wrapContentHeight(align = Alignment.CenterVertically)
-                        )
-                    },
-                    shape = RoundedCornerShape(8.dp),
-                    selected = false,
-                    onClick = { }
-                )
-        */
     }
 }
 
-@Preview
-@Composable
-private fun Preview() {
-    BookmarkScreen(
-        jobList = listOf(getDummyJob(), getDummyJob(), getDummyJob(), getDummyJob()),
-        onNavigateToDetails = {},
-        onBookmarkClick = {}
-    )
-}
 
-
-@Preview(widthDp = 412, heightDp = 64)
+@Preview()
 @Composable
 private fun FilterRowPreview() {
     FilterRow(listOf("Created", "Bookmarked"), 0)

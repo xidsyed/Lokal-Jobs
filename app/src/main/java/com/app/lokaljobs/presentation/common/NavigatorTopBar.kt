@@ -1,4 +1,4 @@
-package com.app.lokaljobs.presentation.screens.components
+package com.app.lokaljobs.presentation.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.app.lokaljobs.presentation.Route
+import com.app.lokaljobs.presentation.navigation.Route
 import com.app.lokaljobs.ui.theme.Accent
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.cinderella.lokaljobs.R
