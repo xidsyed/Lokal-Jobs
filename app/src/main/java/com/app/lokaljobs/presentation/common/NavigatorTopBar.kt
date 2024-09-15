@@ -26,15 +26,15 @@ import com.cinderella.lokaljobs.R
 
 
 @Composable
-fun NavigatorTopBar(route: Route) {
+fun NavigatorTopBar(modifier: Modifier = Modifier, route: Route) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp, vertical = 28.dp)
             .fillMaxWidth()
     ) {
-        when(route) {
+        when (route) {
             is Route.HomeScreen -> {
                 Image(
                     painter = painterResource(id = R.drawable.lokal_logo),
@@ -54,13 +54,18 @@ fun NavigatorTopBar(route: Route) {
                     ) { append("Jobs") }
                 })
             }
-            else  -> {
+
+            else -> {
                 Text(
                     text = "Bookmarks",
                     modifier = Modifier.fillMaxWidth(),
                     color = DarkGray,
                     lineHeight = 1.sp,
-                    style = TextStyle(fontWeight = FontWeight.ExtraBold, fontSize = 36.sp, color = DarkGray)
+                    style = TextStyle(
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 36.sp,
+                        color = DarkGray
+                    )
                 )
             }
 
@@ -71,5 +76,5 @@ fun NavigatorTopBar(route: Route) {
 @Preview
 @Composable
 private fun TopAppBarPreview() {
-    NavigatorTopBar(Route.BookmarkScreen)
+    NavigatorTopBar(route = Route.BookmarkScreen)
 }

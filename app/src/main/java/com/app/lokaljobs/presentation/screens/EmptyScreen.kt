@@ -19,9 +19,9 @@ import com.app.lokaljobs.ui.theme.Gray
 import com.cinderella.lokaljobs.R
 
 @Composable
-fun EmptyScreen(message: String?) {
+fun EmptyScreen(modifier: Modifier = Modifier, message: String?) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),

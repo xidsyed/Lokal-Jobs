@@ -41,6 +41,7 @@ import com.cinderella.lokaljobs.R
 
 @Composable
 fun JobCard(
+    modifier: Modifier = Modifier,
     job: JobEntity,
     isBookmarked: Boolean,
     isHighlighted: Boolean = false,
@@ -49,7 +50,7 @@ fun JobCard(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
-        modifier = Modifier
+        modifier = modifier
             .clip(shape = RoundedCornerShape(12.dp))
             .background(color = if (isHighlighted) Highlight else Surface)
             .clickable { onJobCardClick(job) }
@@ -268,7 +269,7 @@ fun BottomChip(
 @Preview()
 @Composable
 private fun JobCardsPreview() {
-    JobCard(job = getDummyJob(), true, onJobCardClick = {}, onBookmarkIconClick = {})
+    JobCard(job = getDummyJob(), isBookmarked = true, onJobCardClick = {}, onBookmarkIconClick = {})
 }
 
 @Preview()
@@ -276,7 +277,7 @@ private fun JobCardsPreview() {
 private fun JobCardHighlightedPreview() {
     JobCard(
         job = getDummyJob(),
-        true,
+        isBookmarked = true,
         isHighlighted = true,
         onJobCardClick = {},
         onBookmarkIconClick = {})

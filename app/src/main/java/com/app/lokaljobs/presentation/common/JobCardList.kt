@@ -19,6 +19,7 @@ import com.app.lokaljobs.ui.theme.LightGray
 
 @Composable
 fun JobCardList(
+    modifier: Modifier = Modifier,
     jobItems: LazyPagingItems<JobEntity>,
     bookmarkedJobs: List<JobEntity>,
     isJobCardHighlighted: Boolean,
@@ -30,6 +31,7 @@ fun JobCardList(
     if (!pagingResultReceived) return
 
     LazyColumn(
+        modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -79,42 +81,10 @@ private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
         }
 
         jobItems.itemCount == 0 -> {
-            EmptyScreen("No Jobs Found")
+            EmptyScreen(message="No Jobs Found")
             false
         }
 
         else -> true
-    }
-}
-
-@Composable
-fun BookmarkJobCardList(
-    jobList: List<JobEntity>,
-    isJobCardHighlighted: Boolean,
-    onNavigateToDetails: (JobEntity) -> Unit,
-    onBookmarkClick: (JobEntity) -> Unit
-) {
-
-    val isEmpty = if (jobList.isEmpty()) {
-        EmptyScreen(message = "No Bookmarks")
-        false
-    } else true
-
-    if (!isEmpty) return
-
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(jobList.size) { index ->
-            val job = jobList[index]
-            JobCard(
-                job = job,
-                isBookmarked = true,
-                isHighlighted = isJobCardHighlighted,
-                onJobCardClick = onNavigateToDetails,
-                onBookmarkIconClick = onBookmarkClick
-            )
-        }
     }
 }

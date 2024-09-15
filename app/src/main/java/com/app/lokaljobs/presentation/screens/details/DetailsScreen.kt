@@ -27,9 +27,9 @@ import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.LokalJobsTheme
 
 @Composable
-fun DetailScreen(job: JobEntity) {
+fun DetailScreen(modifier: Modifier = Modifier, job: JobEntity) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 18.dp)
     ) {
@@ -130,6 +130,6 @@ private fun ColumnScope.JobDescription(title: String, body: String, postedDate: 
 @Composable
 private fun NavigatorDetailScreenPreview() {
     LokalJobsTheme {
-        DetailScreen(getDummyJob())
+        DetailScreen(job = getDummyJob())
     }
 }

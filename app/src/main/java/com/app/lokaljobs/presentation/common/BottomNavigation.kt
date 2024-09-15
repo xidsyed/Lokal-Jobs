@@ -27,15 +27,19 @@ import com.cinderella.lokaljobs.R
 
 @Composable
 fun BottomNavigation(
-    items: List<BottomNavigationItem>, selected: Int, onClick: (Int) -> Unit
+    modifier: Modifier = Modifier,
+    items: List<BottomNavigationItem>,
+    selected: Int,
+    onClick: (Int) -> Unit
 ) {
     NavigationBar(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.background,
     ) {
         items.forEachIndexed { index, item ->
             val isSelected = index == selected
-            NavigationBarItem(selected = isSelected,
+            NavigationBarItem(
+                selected = isSelected,
                 onClick = { onClick(index) },
                 alwaysShowLabel = true,
                 icon = {

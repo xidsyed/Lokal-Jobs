@@ -29,11 +29,11 @@ import com.app.lokaljobs.ui.theme.OnHighlight
 import com.cinderella.lokaljobs.R
 
 @Composable
-fun CallButtonGroup() {
+fun CallButtonGroup(modifier: Modifier = Modifier) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.Start),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .requiredWidth(width = 180.dp)
             .padding(vertical = 16.dp)
     ) {
