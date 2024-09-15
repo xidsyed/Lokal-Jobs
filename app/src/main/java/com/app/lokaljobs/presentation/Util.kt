@@ -1,7 +1,7 @@
 package com.app.lokaljobs.presentation
 
-import com.app.lokaljobs.data.local.JobEntity
 import com.app.lokaljobs.data.local.JobCategory
+import com.app.lokaljobs.data.local.JobEntity
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
 import com.app.lokaljobs.presentation.navigation.Route
 import com.cinderella.lokaljobs.R
@@ -11,7 +11,7 @@ import java.util.Locale
 fun JobEntity.getTime(): String? {
     return runCatching {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.getDefault())
-        val date = simpleDateFormat.parse(createdOn) // Parse the ISO 8601 format
+        val date = simpleDateFormat.parse(createdOn)
         val outputFormat = SimpleDateFormat("dd MMM yy", Locale.getDefault())
         date?.let { outputFormat.format(it) } ?: "Invalid date"
     }.getOrNull()

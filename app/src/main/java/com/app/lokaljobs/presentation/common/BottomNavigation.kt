@@ -44,9 +44,7 @@ fun BottomNavigation(
                             painterResource(id = if (isSelected) item.iconSelected else item.icon),
                             contentDescription = null,
                             modifier = Modifier.size(Dimens.NavIconSize)
-                        )/*
-                                                Spacer(modifier = Modifier.height(ExtraSmallPadding))
-                        */
+                        )
                     }
                 },
                 label = {

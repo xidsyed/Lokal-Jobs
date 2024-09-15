@@ -20,17 +20,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.lokaljobs.data.local.JobEntity
-import com.app.lokaljobs.presentation.screens.bookmark.BookmarkScreen
-import com.app.lokaljobs.presentation.screens.details.DetailScreen
-import com.app.lokaljobs.presentation.screens.home.HomeScreen
 import com.app.lokaljobs.presentation.common.BottomNavigation
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
 import com.app.lokaljobs.presentation.common.NavigatorTopBar
+import com.app.lokaljobs.presentation.screens.bookmark.BookmarkScreen
+import com.app.lokaljobs.presentation.screens.details.DetailScreen
+import com.app.lokaljobs.presentation.screens.home.HomeScreen
 import com.cinderella.lokaljobs.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun JobNavigator() {
+fun JobNavigator(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
     val backStackEntry = navController.currentBackStackEntryAsState().value
@@ -65,6 +64,7 @@ fun JobNavigator() {
 
 
     Scaffold(
+        modifier = modifier,
         topBar = {
             if (areScaffoldBarsVisible) {
                 NavigatorTopBar(route = bottomNavigationItems[selectedState].destination)
@@ -113,7 +113,8 @@ fun JobNavigator() {
             }
 
             composable(route = Route.DetailScreen.route) {
-                val job = navController.previousBackStackEntry?.savedStateHandle?.get<JobEntity?>("job")
+                val job =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<JobEntity?>("job")
                 job?.let {
                     DetailScreen(job)
                 }
