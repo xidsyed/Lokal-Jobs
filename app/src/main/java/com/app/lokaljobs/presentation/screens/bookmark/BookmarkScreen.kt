@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.common.BookmarkJobCardList
 import com.app.lokaljobs.presentation.common.FilterRow
 import com.app.lokaljobs.presentation.getDummyJob

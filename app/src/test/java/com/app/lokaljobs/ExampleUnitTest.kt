@@ -1,7 +1,7 @@
 package com.app.lokaljobs
 
-import com.app.lokaljobs.data.remote.JobService
-import com.app.lokaljobs.data.local.toJobs
+import com.app.lokaljobs.data.remote.service.JobService
+import com.app.lokaljobs.data.local.model.toJobs
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import retrofit2.Retrofit

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.screens.EmptyScreen
 import com.app.lokaljobs.ui.theme.LightGray
 

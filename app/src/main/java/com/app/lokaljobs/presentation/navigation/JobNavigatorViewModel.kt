@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.app.lokaljobs.di.JobServiceModule
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

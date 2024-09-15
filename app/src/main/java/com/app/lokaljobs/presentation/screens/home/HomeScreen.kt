@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.common.JobCardList
 
 @Composable

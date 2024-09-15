@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.Surface

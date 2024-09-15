@@ -1,4 +1,4 @@
-package com.app.lokaljobs.data.local
+package com.app.lokaljobs.data.local.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes

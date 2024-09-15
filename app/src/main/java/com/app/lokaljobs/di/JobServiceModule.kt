@@ -5,8 +5,8 @@ import com.app.lokaljobs.Constants.BOOKMARK_DATABASE_NAME
 import com.app.lokaljobs.LokalJobsApplication
 import com.app.lokaljobs.domain.BookmarkUseCases
 import com.app.lokaljobs.domain.GetJobsUseCase
-import com.app.lokaljobs.data.local.JobDatabase
-import com.app.lokaljobs.data.remote.JobService
+import com.app.lokaljobs.data.local.service.JobDatabase
+import com.app.lokaljobs.data.remote.service.JobService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

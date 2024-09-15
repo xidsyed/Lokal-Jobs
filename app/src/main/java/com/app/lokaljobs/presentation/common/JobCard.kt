@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.getDummyJob
 import com.app.lokaljobs.presentation.getTime
 import com.app.lokaljobs.ui.theme.DarkGray

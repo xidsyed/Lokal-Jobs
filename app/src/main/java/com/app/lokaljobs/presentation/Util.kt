@@ -1,7 +1,7 @@
 package com.app.lokaljobs.presentation
 
-import com.app.lokaljobs.data.local.JobCategory
-import com.app.lokaljobs.data.local.JobEntity
+import com.app.lokaljobs.data.local.model.JobCategory
+import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
 import com.app.lokaljobs.presentation.navigation.Route
 import com.cinderella.lokaljobs.R

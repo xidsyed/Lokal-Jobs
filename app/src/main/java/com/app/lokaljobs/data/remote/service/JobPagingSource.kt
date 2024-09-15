@@ -1,10 +1,10 @@
-package com.app.lokaljobs.data.remote
+package com.app.lokaljobs.data.remote.service
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.app.lokaljobs.data.local.JobEntity
-import com.app.lokaljobs.data.local.toJobs
+import com.app.lokaljobs.data.local.model.JobEntity
+import com.app.lokaljobs.data.local.model.toJobs
 
 class JobPagingSource(val jobService: JobService) : PagingSource<Int, JobEntity>() {
     override fun getRefreshKey(state: PagingState<Int, JobEntity>): Int? {

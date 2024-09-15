@@ -1,10 +1,11 @@
-package com.app.lokaljobs.data.local
+package com.app.lokaljobs.data.local.service
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.app.lokaljobs.data.local.model.JobEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

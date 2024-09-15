@@ -1,4 +1,4 @@
-package com.app.lokaljobs.data.remote
+package com.app.lokaljobs.data.remote.service
 
 import com.app.lokaljobs.data.remote.model.JobResponse
 import retrofit2.http.GET

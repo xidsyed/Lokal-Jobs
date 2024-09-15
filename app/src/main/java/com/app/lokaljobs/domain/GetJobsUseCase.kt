@@ -3,9 +3,9 @@ package com.app.lokaljobs.domain
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.app.lokaljobs.data.local.JobEntity
-import com.app.lokaljobs.data.remote.JobPagingSource
-import com.app.lokaljobs.data.remote.JobService
+import com.app.lokaljobs.data.local.model.JobEntity
+import com.app.lokaljobs.data.remote.service.JobPagingSource
+import com.app.lokaljobs.data.remote.service.JobService
 import kotlinx.coroutines.flow.Flow
 
 
