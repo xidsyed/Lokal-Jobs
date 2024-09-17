@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.lokaljobs.Dimens
 import com.app.lokaljobs.presentation.navigation.Route
@@ -52,7 +53,7 @@ fun BottomNavigation(
                     }
                 },
                 label = {
-                    Text(text = item.label, style = TextStyle(color = DarkGray))
+                    Text(text = item.label, style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium))
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = DarkGray,
@@ -81,7 +82,7 @@ fun BottomNavigationPreview() {
                 icon = R.drawable.bookmark_unselected,
                 iconSelected = R.drawable.bookmark_filled_dark,
                 label = "Bookmarks",
-                destination = Route.BookmarkScreen
+                destination = Route.BookmarkScreen,
             ),
         ), selected = 1, onClick = {})
     }

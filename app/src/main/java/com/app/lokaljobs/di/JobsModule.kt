@@ -30,9 +30,9 @@ object JobsModule {
         ).fallbackToDestructiveMigration().build()
     }
 
-    val JobDao by lazy { jobDatabase.jobDao }
+    private val JobsRepository: JobsRepository by lazy { JobsRepositoryImpl(JobService, jobDao = JobDao) }
 
-    val JobsRepository: JobsRepository by lazy { JobsRepositoryImpl(JobService, jobDao = JobDao) }
+    private val JobDao by lazy { jobDatabase.jobDao }
 
     val JobsUseCase: JobsUseCase by lazy { JobsUseCase(JobsRepository) }
 
