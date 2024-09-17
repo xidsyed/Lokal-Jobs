@@ -33,7 +33,7 @@ fun JobNavigator(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val backStackEntry = navController.currentBackStackEntryAsState().value
 
-    val bottomNavigationItems = listOf(
+    val bottomNavigationItems = listOf (
         BottomNavigationItem(
             icon = R.drawable.icon_experience,
             iconSelected = R.drawable.icon_experience,
@@ -50,9 +50,7 @@ fun JobNavigator(modifier: Modifier = Modifier) {
 
     var selectedState by rememberSaveable { mutableIntStateOf(0) }
     selectedState = remember(backStackEntry) {
-        bottomNavigationItems.indexOfFirst {
-            backStackEntry?.destination?.route == it.destination.route
-        }
+        bottomNavigationItems.indexOfFirst { backStackEntry?.destination?.route == it.destination.route }
     }
 
     val areScaffoldBarsVisible = remember(backStackEntry) {
@@ -77,14 +75,15 @@ fun JobNavigator(modifier: Modifier = Modifier) {
                     onClick = {
                         val route = bottomNavigationItems[it].destination
                         navigateToBottom(navController, route.route)
-                    })
+                    }
+                )
             }
         },
     ) { paddingValues ->
         NavHost(
             modifier = Modifier.padding(paddingValues),
             navController = navController,
-            startDestination = Route.BookmarkScreen.route,
+            startDestination = Route.HomeScreen.route,
             route = Route.JobNavigator.route
         ) {
 

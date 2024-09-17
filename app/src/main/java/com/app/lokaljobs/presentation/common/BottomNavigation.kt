@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.lokaljobs.Dimens
 import com.app.lokaljobs.presentation.navigation.Route
+import com.app.lokaljobs.ui.theme.Background
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.LokalJobsTheme
@@ -34,7 +36,7 @@ fun BottomNavigation(
 ) {
     NavigationBar(
         modifier = modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = Background,
     ) {
         items.forEachIndexed { index, item ->
             val isSelected = index == selected
@@ -43,16 +45,14 @@ fun BottomNavigation(
                 onClick = { onClick(index) },
                 alwaysShowLabel = true,
                 icon = {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
                             painterResource(id = if (isSelected) item.iconSelected else item.icon),
                             contentDescription = null,
                             modifier = Modifier.size(Dimens.NavIconSize)
                         )
-                    }
                 },
                 label = {
-                    Text(text = item.label, style = TextStyle(color = DarkGray))
+                    Text(text = item.label, style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium))
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = DarkGray,
@@ -81,9 +81,9 @@ fun BottomNavigationPreview() {
                 icon = R.drawable.bookmark_unselected,
                 iconSelected = R.drawable.bookmark_filled_dark,
                 label = "Bookmarks",
-                destination = Route.BookmarkScreen
+                destination = Route.BookmarkScreen,
             ),
-        ), selected = 1, onClick = {})
+        ), selected = 0, onClick = {})
     }
 }
 
