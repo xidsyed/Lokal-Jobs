@@ -1,8 +1,11 @@
 package com.app.lokaljobs.presentation.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -17,14 +20,22 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.common.BottomNavigation
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
+import com.app.lokaljobs.presentation.common.GenericSnackBarHost
+import com.app.lokaljobs.presentation.common.GenericSnackbarDuration
+import com.app.lokaljobs.presentation.common.GenericSnackbarHostState
 import com.app.lokaljobs.presentation.common.NavigatorTopBar
+import com.app.lokaljobs.presentation.common.SmartSnackbar
+import com.app.lokaljobs.presentation.common.SnackbarMessage
 import com.app.lokaljobs.presentation.screens.bookmark.BookmarkScreen
 import com.app.lokaljobs.presentation.screens.details.DetailScreen
 import com.app.lokaljobs.presentation.screens.home.HomeScreen
+import com.app.lokaljobs.ui.theme.Gray
 import com.cinderella.lokaljobs.R
 
 @Composable
@@ -61,8 +72,19 @@ fun JobNavigator(modifier: Modifier = Modifier) {
 
     val viewModel = viewModel<JobNavigatorViewModel>()
 
+    val snackbarHostState = remember { GenericSnackbarHostState<SnackbarMessage>() }
+
+    val lazyPagingItems = viewModel.jobsPagingDataFlow.collectAsLazyPagingItems()
 
     Scaffold(
+        snackbarHost = {
+            GenericSnackBarHost(snackbarHostState) { snackbarData ->
+                SmartSnackbar(
+                    snackbarData = snackbarData,
+                    actionLabel = snackbarData.actionLabel,
+                )
+            }
+        },
         modifier = modifier,
         topBar = {
             if (areScaffoldBarsVisible) {
@@ -89,10 +111,14 @@ fun JobNavigator(modifier: Modifier = Modifier) {
         ) {
 
             composable(route = Route.HomeScreen.route) {
-                val jobItems = viewModel.jobs.collectAsLazyPagingItems()
                 val bookmarkedJobs = viewModel.bookmarkedJobs.collectAsState()
+                HandlePagingDataLoadState(
+                    snackbarHostState = snackbarHostState,
+                    lazyPagingItems = lazyPagingItems,
+                )
+
                 HomeScreen(
-                    jobItems = jobItems,
+                    jobItems = lazyPagingItems,
                     bookmarkedJobs = bookmarkedJobs.value,
                     onNavigateToDetails = { job ->
                         navigateToDetails(navController, job)
@@ -120,6 +146,50 @@ fun JobNavigator(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+
+@Composable
+fun HandlePagingDataLoadState(
+    snackbarHostState: GenericSnackbarHostState<SnackbarMessage>,
+    lazyPagingItems: LazyPagingItems<JobEntity>,
+) {
+    val loadState = lazyPagingItems.loadState
+    var retryCount by remember { mutableIntStateOf(0) }
+    LaunchedEffect(loadState) {
+        when {
+            loadState.append is LoadState.Error || loadState.refresh is LoadState.Error -> {
+                val message = SnackbarMessage.Filling(
+                    message = "Couldn't fetch jobs",
+                    durationInMs = ((retryCount + 3) * 1000).coerceAtMost(8000),
+                    onFillAction = {
+                        retryCount++
+                        lazyPagingItems.retry()
+                    }, fillColor = Gray
+                )
+                snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = "Retry",
+                    duration = GenericSnackbarDuration.Indefinite
+                ).also {
+                    when (it) {
+                        SnackbarResult.Dismissed -> {}
+                        SnackbarResult.ActionPerformed -> {
+                            Log.d("TAG", "HandlePagingDataLoadState: Retrying")
+                            retryCount++
+                            lazyPagingItems.retry()
+                        }
+                    }
+                }
+
+            }
+
+            loadState.append is LoadState.NotLoading && loadState.refresh is LoadState.NotLoading -> {
+                retryCount = 0
+            }
+        }
+    }
+
 }
 
 @Preview

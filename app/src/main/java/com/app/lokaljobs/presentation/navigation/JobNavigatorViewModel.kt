@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class JobNavigatorViewModel : ViewModel() {
     private val jobsUseCase = JobsModule.JobsUseCase
 
-    val jobs: Flow<PagingData<JobEntity>> = jobsUseCase.getJobs().cachedIn(viewModelScope)
+    val jobsPagingDataFlow: Flow<PagingData<JobEntity>> = jobsUseCase.getJobs().cachedIn(viewModelScope)
     private var _bookmarkedJobs = MutableStateFlow<List<JobEntity>>(emptyList())
     val bookmarkedJobs: StateFlow<List<JobEntity>> get() = _bookmarkedJobs
 
