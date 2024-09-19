@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -121,14 +120,8 @@ fun JobNavigator(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
-@Composable
-fun JobNavigatorPreview() {
-    JobNavigator()
-}
 
-
-fun navigateToBottom(navController: NavController, route: String) {
+private fun navigateToBottom(navController: NavController, route: String) {
     navController.navigate(route) {
         navController.graph.startDestinationRoute?.let {
             popUpTo(it) { saveState = true }
