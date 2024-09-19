@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.ui.theme.Gray
@@ -24,11 +25,11 @@ fun EmptyScreen(modifier: Modifier = Modifier, message: String?) {
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.CenterVertically),
+        verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            modifier = Modifier.size(300.dp),
+            modifier = Modifier.size(200.dp),
             painter = painterResource(R.drawable.empty),
             contentDescription = "Empty Page"
         )
@@ -36,9 +37,15 @@ fun EmptyScreen(modifier: Modifier = Modifier, message: String?) {
             Text(
                 modifier = Modifier.padding(32.dp),
                 text = message,
-                style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.ExtraBold),
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.ExtraBold),
                 color = Gray
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun EmptyScreenPreview() {
+    EmptyScreen(message = "No Jobs Found")
 }

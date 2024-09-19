@@ -58,8 +58,6 @@ private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
     // get error if any of the load states has an error
     val error = when {
         loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
         else -> null
     }
 
@@ -76,12 +74,12 @@ private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
         }
 
         error != null -> {
-            EmptyScreen(message = error.error.message)
+            EmptyScreen(message = "Error Fetching From Server. Try again.")
             false
         }
 
         jobItems.itemCount == 0 -> {
-            EmptyScreen(message="No Jobs Found")
+            EmptyScreen(message = "No Jobs Found")
             false
         }
 

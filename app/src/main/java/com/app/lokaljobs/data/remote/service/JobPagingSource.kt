@@ -1,6 +1,5 @@
 package com.app.lokaljobs.data.remote.service
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.app.lokaljobs.data.local.model.JobEntity
@@ -24,7 +23,7 @@ class JobPagingSource(val jobService: JobService) : PagingSource<Int, JobEntity>
                 prevKey = null
             )
         } catch (e: Throwable) {
-            Log.d("JobPagingSource", "load: ${e.printStackTrace()}")
+            e.printStackTrace()
             LoadResult.Error(e)
         }
     }
