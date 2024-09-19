@@ -1,17 +1,14 @@
 package com.app.lokaljobs.presentation.common
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -19,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.lokaljobs.Dimens
 import com.app.lokaljobs.presentation.navigation.Route
+import com.app.lokaljobs.ui.theme.Background
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.LokalJobsTheme
@@ -35,7 +33,7 @@ fun BottomNavigation(
 ) {
     NavigationBar(
         modifier = modifier.fillMaxWidth(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = Background,
     ) {
         items.forEachIndexed { index, item ->
             val isSelected = index == selected
@@ -44,13 +42,11 @@ fun BottomNavigation(
                 onClick = { onClick(index) },
                 alwaysShowLabel = true,
                 icon = {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
                             painterResource(id = if (isSelected) item.iconSelected else item.icon),
                             contentDescription = null,
                             modifier = Modifier.size(Dimens.NavIconSize)
                         )
-                    }
                 },
                 label = {
                     Text(text = item.label, style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium))
@@ -84,7 +80,7 @@ fun BottomNavigationPreview() {
                 label = "Bookmarks",
                 destination = Route.BookmarkScreen,
             ),
-        ), selected = 1, onClick = {})
+        ), selected = 0, onClick = {})
     }
 }
 
