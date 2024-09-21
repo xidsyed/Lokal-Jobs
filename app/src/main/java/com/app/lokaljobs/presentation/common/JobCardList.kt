@@ -1,14 +1,9 @@
 package com.app.lokaljobs.presentation.common
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -47,6 +42,9 @@ fun JobCardList(
             }
 
         }
+        if (jobItems.loadState.append is LoadState.Loading) {
+            item { LoadingSpinner(size = 32.dp, strokeWidth = 2.dp, color = LightGray) }
+        }
     }
 
 }
@@ -63,13 +61,11 @@ private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
 
     return when {
         loadState.refresh is LoadState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator(
-                    modifier = Modifier.width(64.dp),
-                    color = LightGray,
-                    strokeWidth = 3.dp
-                )
-            }
+            LoadingSpinner(
+                size = 64.dp,
+                strokeWidth = 3.dp,
+                color = LightGray
+            )
             false
         }
 
