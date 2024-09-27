@@ -54,7 +54,7 @@ fun NavigatorTopBar(
         scrollBehavior = scrollBehaviour,
         expandedHeight = 80.dp,
         title = {
-            val slideDuration = 300
+            val slideDuration = 500
             val fadeInDuration = 300
             val fadeOutDuration = 50
             AnimatedContent(
@@ -62,21 +62,21 @@ fun NavigatorTopBar(
                 transitionSpec = {
                     if (targetState is Route.HomeScreen) {
                         (slideInHorizontally(
-                            initialOffsetX = { -it / 2 },
+                            initialOffsetX = { (-it * 0.8).toInt() },
                             animationSpec = tween(slideDuration, easing = EaseOutExpo)
                         ) + fadeIn(animationSpec = tween(fadeInDuration))).togetherWith(
                             slideOutHorizontally(
-                                targetOffsetX = { it / 2 },
+                                targetOffsetX = { (it * 0.8).toInt() },
                                 animationSpec = tween(slideDuration, easing = EaseOutExpo)
                             ) + fadeOut(animationSpec = tween(fadeOutDuration))
                         )
                     } else {
                         (slideInHorizontally(
-                            initialOffsetX = { it / 2 },
+                            initialOffsetX = { (it * 0.8).toInt() },
                             animationSpec = tween(slideDuration, easing = EaseOutExpo)
                         ) + fadeIn(animationSpec = tween(fadeInDuration))).togetherWith(
                             slideOutHorizontally(
-                                targetOffsetX = { -it / 2 },
+                                targetOffsetX = { (-it * 0.8).toInt() },
                                 animationSpec = tween(slideDuration, easing = EaseOutExpo)
                             ) + fadeOut(animationSpec = tween(fadeOutDuration))
                         )
