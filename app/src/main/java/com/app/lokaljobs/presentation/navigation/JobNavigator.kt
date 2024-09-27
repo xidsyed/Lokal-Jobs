@@ -2,8 +2,11 @@ package com.app.lokaljobs.presentation.navigation
 
 import android.util.Log
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -37,13 +41,14 @@ import com.app.lokaljobs.presentation.screens.home.HomeScreen
 import com.app.lokaljobs.ui.theme.Gray
 import com.cinderella.lokaljobs.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JobNavigator(modifier: Modifier = Modifier) {
 
     val navController = rememberNavController()
     val backStackEntry = navController.currentBackStackEntryAsState().value
 
-    val bottomNavigationItems = listOf (
+    val bottomNavigationItems = listOf(
         BottomNavigationItem(
             icon = R.drawable.icon_experience,
             iconSelected = R.drawable.icon_experience,
@@ -68,9 +73,7 @@ fun JobNavigator(modifier: Modifier = Modifier) {
     }
 
     val viewModel = viewModel<JobNavigatorViewModel>()
-
     val snackbarHostState = remember { GenericSnackbarHostState<SnackbarMessage>() }
-
     val lazyPagingItems = viewModel.jobsPagingDataFlow.collectAsLazyPagingItems()
 
     Scaffold(
