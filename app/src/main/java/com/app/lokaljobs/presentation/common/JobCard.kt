@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +36,7 @@ import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Highlight
 import com.app.lokaljobs.ui.theme.HighlightOverlay
 import com.app.lokaljobs.ui.theme.LightGray
+import com.app.lokaljobs.ui.theme.OnHighlight
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.app.lokaljobs.ui.theme.Surface
 import com.cinderella.lokaljobs.R
@@ -121,9 +123,14 @@ fun JobCard(
             ) {
                 Icon(
                     painter = painterResource(
-                        id = if (isBookmarked) R.drawable.bookmark_filled_dark
-                        else R.drawable.bookmark_unselected_light_gray
+                        id = R.drawable.bookmark_filled_light
                     ),
+                    tint = if (isBookmarked) {
+                        DarkGray
+                    } else {
+                        if (isHighlighted) OnHighlight
+                        else Color.LightGray
+                    },
                     contentDescription = "Bookmark",
                     modifier = Modifier
                         .requiredSize(size = 32.dp)
@@ -269,16 +276,38 @@ fun BottomChip(
 @Preview()
 @Composable
 private fun JobCardsPreview() {
-    JobCard(job = getDummyJob(), isBookmarked = true, onJobCardClick = {}, onBookmarkIconClick = {})
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        JobCard(
+            job = getDummyJob(),
+            isBookmarked = true,
+            onJobCardClick = {},
+            onBookmarkIconClick = {})
+        JobCard(
+            job = getDummyJob(),
+            isBookmarked = false,
+            onJobCardClick = {},
+            onBookmarkIconClick = {})
+    }
 }
 
 @Preview()
 @Composable
 private fun JobCardHighlightedPreview() {
-    JobCard(
-        job = getDummyJob(),
-        isBookmarked = true,
-        isHighlighted = true,
-        onJobCardClick = {},
-        onBookmarkIconClick = {})
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        JobCard(
+            job = getDummyJob(),
+            isBookmarked = true,
+            isHighlighted = true,
+            onJobCardClick = {},
+            onBookmarkIconClick = {}
+        )
+        JobCard(
+            job = getDummyJob(),
+            isBookmarked = false,
+            isHighlighted = true,
+            onJobCardClick = {},
+            onBookmarkIconClick = {}
+        )
+
+    }
 }
