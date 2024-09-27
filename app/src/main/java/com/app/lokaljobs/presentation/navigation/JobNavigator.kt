@@ -76,6 +76,9 @@ fun JobNavigator(modifier: Modifier = Modifier) {
     val snackbarHostState = remember { GenericSnackbarHostState<SnackbarMessage>() }
     val lazyPagingItems = viewModel.jobsPagingDataFlow.collectAsLazyPagingItems()
 
+
+    val bottomScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
+    val topScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         snackbarHost = {
             GenericSnackBarHost(snackbarHostState) { snackbarData ->
@@ -85,10 +88,15 @@ fun JobNavigator(modifier: Modifier = Modifier) {
                 )
             }
         },
-        modifier = modifier,
+        modifier = modifier
+            .nestedScroll(topScrollBehavior.nestedScrollConnection)
+            .nestedScroll(bottomScrollBehavior.nestedScrollConnection),
         topBar = {
             if (areScaffoldBarsVisible) {
-                NavigatorTopBar(route = bottomNavigationItems[selectedState].destination)
+                NavigatorTopBar(
+                    route = bottomNavigationItems[selectedState].destination,
+                    scrollBehaviour = topScrollBehavior
+                )
             }
         },
         bottomBar = {
@@ -99,7 +107,8 @@ fun JobNavigator(modifier: Modifier = Modifier) {
                     onClick = {
                         val route = bottomNavigationItems[it].destination
                         navigateToBottom(navController, route.route)
-                    }
+                    },
+                    scrollBehavior = bottomScrollBehavior
                 )
             }
         },

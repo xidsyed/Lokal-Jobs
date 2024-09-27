@@ -3,8 +3,10 @@ package com.app.lokaljobs.presentation.common
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarScrollBehavior
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
@@ -24,16 +26,19 @@ import com.app.lokaljobs.ui.theme.Surface
 import com.cinderella.lokaljobs.R
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigation(
     modifier: Modifier = Modifier,
     items: List<BottomNavigationItem>,
     selected: Int,
-    onClick: (Int) -> Unit
+    onClick: (Int) -> Unit,
+    scrollBehavior: BottomAppBarScrollBehavior? = null
 ) {
-    NavigationBar(
+    BottomAppBar(
         modifier = modifier.fillMaxWidth(),
         containerColor = Background,
+        scrollBehavior = scrollBehavior
     ) {
         items.forEachIndexed { index, item ->
             val isSelected = index == selected
@@ -42,14 +47,17 @@ fun BottomNavigation(
                 onClick = { onClick(index) },
                 alwaysShowLabel = true,
                 icon = {
-                        Icon(
-                            painterResource(id = if (isSelected) item.iconSelected else item.icon),
-                            contentDescription = null,
-                            modifier = Modifier.size(Dimens.NavIconSize)
-                        )
+                    Icon(
+                        painterResource(id = if (isSelected) item.iconSelected else item.icon),
+                        contentDescription = null,
+                        modifier = Modifier.size(Dimens.NavIconSize)
+                    )
                 },
                 label = {
-                    Text(text = item.label, style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium))
+                    Text(
+                        text = item.label,
+                        style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium)
+                    )
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = DarkGray,
@@ -63,6 +71,7 @@ fun BottomNavigation(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun BottomNavigationPreview() {
