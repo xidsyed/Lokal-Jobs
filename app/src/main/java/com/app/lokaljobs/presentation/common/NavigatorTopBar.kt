@@ -1,15 +1,29 @@
 package com.app.lokaljobs.presentation.common
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.EaseOutExpo
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -25,56 +39,119 @@ import com.app.lokaljobs.ui.theme.DarkGray
 import com.cinderella.lokaljobs.R
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigatorTopBar(modifier: Modifier = Modifier, route: Route) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-        verticalAlignment = Alignment.CenterVertically,
+fun NavigatorTopBar(
+    modifier: Modifier = Modifier,
+    route: Route,
+    scrollBehaviour: TopAppBarScrollBehavior? = null
+) {
+    TopAppBar(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 28.dp)
-            .fillMaxWidth()
-    ) {
-        when (route) {
-            is Route.HomeScreen -> {
-                Image(
-                    painter = painterResource(id = R.drawable.lokal_logo),
-                    contentDescription = "Lokal Icon",
-                    modifier = Modifier.requiredSize(size = 30.dp)
-                )
-                Text(lineHeight = 1.sp, text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            color = DarkGray, fontSize = 36.sp, fontWeight = FontWeight.ExtraBold
+            .background(Color.White)
+            .padding(vertical = 0.dp)
+            .fillMaxWidth(),
+        scrollBehavior = scrollBehaviour,
+        expandedHeight = 80.dp,
+        title = {
+            val slideDuration = 500
+            val fadeInDuration = 300
+            val fadeOutDuration = 50
+            AnimatedContent(
+                targetState = route,
+                transitionSpec = {
+                    if (targetState is Route.HomeScreen) {
+                        (slideInHorizontally(
+                            initialOffsetX = { (-it * 0.8).toInt() },
+                            animationSpec = tween(slideDuration, easing = EaseOutExpo)
+                        ) + fadeIn(animationSpec = tween(fadeInDuration))).togetherWith(
+                            slideOutHorizontally(
+                                targetOffsetX = { (it * 0.8).toInt() },
+                                animationSpec = tween(slideDuration, easing = EaseOutExpo)
+                            ) + fadeOut(animationSpec = tween(fadeOutDuration))
                         )
-                    ) { append("Lokal ") }
-                    withStyle(
-                        style = SpanStyle(
-                            color = Accent, fontSize = 36.sp, fontWeight = FontWeight.ExtraBold
+                    } else {
+                        (slideInHorizontally(
+                            initialOffsetX = { (it * 0.8).toInt() },
+                            animationSpec = tween(slideDuration, easing = EaseOutExpo)
+                        ) + fadeIn(animationSpec = tween(fadeInDuration))).togetherWith(
+                            slideOutHorizontally(
+                                targetOffsetX = { (-it * 0.8).toInt() },
+                                animationSpec = tween(slideDuration, easing = EaseOutExpo)
+                            ) + fadeOut(animationSpec = tween(fadeOutDuration))
                         )
-                    ) { append("Jobs") }
-                })
-            }
+                    }
+                }, label = ""
+            ) { targetState ->
+                when (targetState) {
+                    is Route.HomeScreen -> {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                12.dp,
+                                Alignment.CenterHorizontally
+                            ),
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.lokal_logo),
+                                contentDescription = "Lokal Icon",
+                                modifier = Modifier.requiredSize(size = 30.dp)
+                            )
+                            Text(lineHeight = 1.sp, text = buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = DarkGray,
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.ExtraBold
+                                    )
+                                ) { append("Lokal ") }
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Accent,
+                                        fontSize = 36.sp,
+                                        fontWeight = FontWeight.ExtraBold
+                                    )
+                                ) { append("Jobs") }
+                            })
+                        }
+                    }
 
-            else -> {
-                Text(
-                    text = "Bookmarks",
-                    modifier = Modifier.fillMaxWidth(),
-                    color = DarkGray,
-                    lineHeight = 1.sp,
-                    style = TextStyle(
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 36.sp,
-                        color = DarkGray
-                    )
-                )
+                    else -> {
+                        Text(
+                            text = "Bookmarks",
+                            modifier = Modifier.fillMaxWidth(),
+                            color = DarkGray,
+                            lineHeight = 1.sp,
+                            style = TextStyle(
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 36.sp,
+                                color = DarkGray
+                            )
+                        )
+                    }
+                }
             }
+        },
+        colors = TopAppBarDefaults.topAppBarColors().copy(
+            containerColor = Color.White,
+            scrolledContainerColor = Color.White,
+            titleContentColor = Color.White
+        )
+    )
 
-        }
-    }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun TopAppBarPreview() {
-    NavigatorTopBar(route = Route.BookmarkScreen)
+    NavigatorTopBar(route = Route.BookmarkScreen, scrollBehaviour = null)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+private fun TopAppBarHomeScreenPreview() {
+    NavigatorTopBar(route = Route.HomeScreen, scrollBehaviour = null)
 }

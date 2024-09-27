@@ -1,12 +1,19 @@
 package com.app.lokaljobs.presentation
 
+import androidx.compose.runtime.Composable
 import com.app.lokaljobs.data.local.model.JobCategory
 import com.app.lokaljobs.data.local.model.JobEntity
+import com.app.lokaljobs.presentation.common.BookmarkJobCardList
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
 import com.app.lokaljobs.presentation.navigation.Route
 import com.cinderella.lokaljobs.R
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.concurrent.TimeUnit.DAYS
+import java.util.concurrent.TimeUnit.HOURS
+import java.util.concurrent.TimeUnit.MINUTES
+import java.util.concurrent.TimeUnit.NANOSECONDS
+import java.util.concurrent.TimeUnit.SECONDS
 
 fun JobEntity.getTime(): String? {
     return runCatching {
@@ -17,6 +24,18 @@ fun JobEntity.getTime(): String? {
     }.getOrNull()
 }
 
+fun formatElapsedTime(startTimeNanos: Long, endTimeNanos: Long): String {
+    val tNanos = endTimeNanos - startTimeNanos
+    val tSeconds = NANOSECONDS.toSeconds(tNanos)
+
+    return when {
+        tSeconds < MINUTES.toSeconds(1) -> "$tSeconds seconds"
+        tSeconds < HOURS.toSeconds(1) -> "${SECONDS.toMinutes(tSeconds)} minutes"
+        tSeconds < DAYS.toSeconds(1) -> "${SECONDS.toHours(tSeconds)} hours"
+        else -> "${SECONDS.toDays(tSeconds)} days"
+    }
+
+}
 
 fun JobEntity.getCategory(): JobCategory {
     return JobCategory.fromId(categoryId)
@@ -47,7 +66,7 @@ fun getDummyJob() = JobEntity(
     category = "Teaching"
 )
 
-fun getDummyBottomNavigationList() : List<BottomNavigationItem> = listOf(
+fun getDummyBottomNavigationList(): List<BottomNavigationItem> = listOf(
     BottomNavigationItem(
         icon = R.drawable.icon_experience,
         iconSelected = R.drawable.icon_experience,
@@ -61,3 +80,24 @@ fun getDummyBottomNavigationList() : List<BottomNavigationItem> = listOf(
         destination = Route.BookmarkScreen
     ),
 )
+
+@Composable
+fun DummyBookmarkJobCardList() {
+    BookmarkJobCardList(
+        jobList = listOf(
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+            getDummyJob(),
+        ),
+        onBookmarkClick = {},
+        onNavigateToDetails = {},
+        isJobCardHighlighted = false,
+    )
+
+}
