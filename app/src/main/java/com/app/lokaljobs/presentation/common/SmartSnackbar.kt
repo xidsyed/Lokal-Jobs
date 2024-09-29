@@ -1,6 +1,6 @@
 package com.app.lokaljobs.presentation.common
 
-import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Highlight
 import com.app.lokaljobs.ui.theme.Surface
-import kotlinx.coroutines.delay
 
 
 @Composable
@@ -59,7 +58,7 @@ fun SmartSnackbar(
 
         is SnackbarMessage.Filling -> {
             val fillingData = snackbarData.message as SnackbarMessage.Filling
-            RetrySnackbar(
+            FillingSnackbar(
                 modifier = modifier,
                 message = fillingData.message,
                 actionLabel = actionLabel,
@@ -122,7 +121,7 @@ private fun DefaultSnackbar(
 }
 
 
-class SnackbarColors(
+data class SnackbarColors(
     val messageColor: Color,
     val actionColor: Color,
     val background: Color
@@ -142,48 +141,6 @@ class SnackbarColors(
 }
 
 @Composable
-private fun RetrySnackbar(
-    modifier: Modifier = Modifier,
-    durationInMs: Int,
-    message: String,
-    actionLabel: String?,
-    fillColor: Color,
-    snackbarColors: SnackbarColors,
-    performAction: () -> Unit,
-    dismissAction: () -> Unit,
-    onFillAction: () -> Unit
-) {
-    var animationComplete by remember { mutableStateOf(false) }
-
-    if (!animationComplete) {
-        FillingSnackbar(
-            modifier = modifier,
-            durationInMs = durationInMs,
-            message = message,
-            actionLabel = actionLabel,
-            fillColor = fillColor,
-            snackbarColors = snackbarColors,
-            performAction = performAction,
-            dismissAction = dismissAction,
-            onFillAction = { animationComplete = true }
-        )
-    } else {
-        DisabledSnackbar(
-            message = message,
-            actionLabel = "Retrying...",
-            performAction = {  },
-            dismissAction = {  },
-            snackbarColors = SnackbarColors.Disabled
-        )
-        LaunchedEffect(Unit) {
-            delay(1000)
-            onFillAction()
-        }
-    }
-
-}
-
-@Composable
 private fun FillingSnackbar(
     modifier: Modifier = Modifier,
     durationInMs: Int,
@@ -199,7 +156,7 @@ private fun FillingSnackbar(
     var startAnimation by remember { mutableStateOf(false) }
     val animationProgress by animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
-        animationSpec = tween(durationMillis = durationInMs, easing = LinearEasing), label = "",
+        animationSpec = tween(durationMillis = durationInMs, easing = EaseOut), label = "",
         finishedListener = {
             onFillAction()
         }
@@ -219,8 +176,8 @@ private fun FillingSnackbar(
             actionLabel = actionLabel,
             performAction = performAction,
             dismissAction = dismissAction,
-            messageColor = Surface,
-            actionColor = Highlight,
+            messageColor = snackbarColors.messageColor,
+            actionColor = snackbarColors.actionColor,
         )
 
 
@@ -310,23 +267,8 @@ fun PreviewDisabledSnackbar() {
 
 @Preview(showBackground = false)
 @Composable
-fun PreviewRetrySnackbar() {
-    RetrySnackbar(
-        message = "This is a filling snackbar",
-        actionLabel = "Retry",
-        performAction = {},
-        dismissAction = {},
-        fillColor = Gray,
-        onFillAction = {},
-        durationInMs = 5000,
-        snackbarColors = SnackbarColors.Default
-    )
-}
-
-@Preview(showBackground = false)
-@Composable
 fun PreviewFillingSnackbar() {
-    FillingSnackbar (
+    FillingSnackbar(
         message = "This is a filling snackbar",
         actionLabel = "Retry",
         performAction = {},
