@@ -11,6 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,7 +44,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.presentation.DummyBookmarkJobCardList
 import com.app.lokaljobs.presentation.formatElapsedTime
-import com.app.lokaljobs.ui.theme.Gray
+import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.LightGray
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
@@ -56,16 +59,19 @@ fun PullToRefreshIndicator(
     pullToRefreshProgress: Float,
     maxHeight: Int = 140,
     animationDuration: Int = 250,
+    backgroundColor: Color = Color.Unspecified,
+    contentColor: Color = LightGray
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .background(backgroundColor)
             .height(
                 (pullToRefreshProgress * 60)
                     .roundToInt()
                     .coerceIn(0, maxHeight).dp
             )
-            .clipToBounds(),
+            .clipToBounds()
     ) {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -110,7 +116,7 @@ fun PullToRefreshIndicator(
                     modifier = Modifier
                         .requiredSize(size = 16.dp)
                         .rotate(rotationProgress),
-                    tint = Color.Unspecified
+                    tint = contentColor
                 )
             }
 
@@ -152,15 +158,19 @@ fun PullToRefreshIndicator(
                     if (refreshIndicatorState == RefreshIndicatorState.Refreshing) TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Gray
+                        color = contentColor
                     )
-                    else TextStyle(fontSize = 13.sp, fontWeight = FontWeight.Normal, color = Gray)
+                    else TextStyle(
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = contentColor
+                    )
                 ShimmeringText(
                     text = text,
                     isShimmering = isShimmering,
                     durationMillis = 600,
                     delayMillis = 200,
-                    color = Gray,
+                    color = textStyle.color,
                     shimmerColor = Color.White,
                     style = textStyle,
                     modifier = Modifier
@@ -216,7 +226,9 @@ private fun RefreshPullDownPreview() {
         PullToRefreshIndicator(
             lastRefreshedAt = lastRefreshedAt,
             refreshIndicatorState = refreshIndicatorState,
-            pullToRefreshProgress = pullToRefreshProgress
+            pullToRefreshProgress = pullToRefreshProgress,
+            contentColor = OnHighlightDark,
+            backgroundColor = Highlight
         )
         DummyBookmarkJobCardList()
     }

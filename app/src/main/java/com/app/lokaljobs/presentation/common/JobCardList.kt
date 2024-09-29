@@ -97,7 +97,7 @@ private fun handlePagingResult(jobItems: LazyPagingItems<JobEntity>): Boolean {
 
         error != null -> {
             if (jobItems.itemCount == 0) {
-                EmptyScreen(message = "Error Fetching From Server. Try again.")
+                EmptyScreen(message = "Error Fetching From Server")
                 false
             } else true
         }

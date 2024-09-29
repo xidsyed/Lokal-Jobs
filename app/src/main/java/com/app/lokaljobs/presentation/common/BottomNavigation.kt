@@ -19,10 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.app.lokaljobs.Dimens
 import com.app.lokaljobs.presentation.navigation.Route
 import com.app.lokaljobs.ui.theme.Background
-import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Gray
+import com.app.lokaljobs.ui.theme.Highlight
 import com.app.lokaljobs.ui.theme.LokalJobsTheme
-import com.app.lokaljobs.ui.theme.Surface
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 
 
@@ -56,15 +56,15 @@ fun BottomNavigation(
                 label = {
                     Text(
                         text = item.label,
-                        style = TextStyle(color = DarkGray, fontWeight = FontWeight.Medium)
+                        style = TextStyle(fontWeight = FontWeight.Medium)
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = DarkGray,
+                    selectedIconColor = OnHighlightDark,
                     unselectedIconColor = Gray,
-                    selectedTextColor = DarkGray,
+                    selectedTextColor = OnHighlightDark,
                     unselectedTextColor = Gray,
-                    indicatorColor = Surface
+                    indicatorColor = Highlight
                 )
             )
         }
