@@ -262,6 +262,7 @@ enum class GenericSnackbarDuration {
 sealed class SnackbarMessage(open val message: String, open val snackbarColors: SnackbarColors = SnackbarColors.Default ) {
     class Filling(
         override val message: String,
+        override val snackbarColors: SnackbarColors,
         val durationInMs: Int,
         val onFillAction: () -> Unit,
         val fillColor: Color,

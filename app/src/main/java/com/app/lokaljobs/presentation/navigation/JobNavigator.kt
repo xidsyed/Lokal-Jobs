@@ -35,11 +35,15 @@ import com.app.lokaljobs.presentation.common.GenericSnackbarDuration
 import com.app.lokaljobs.presentation.common.GenericSnackbarHostState
 import com.app.lokaljobs.presentation.common.NavigatorTopBar
 import com.app.lokaljobs.presentation.common.SmartSnackbar
+import com.app.lokaljobs.presentation.common.SnackbarColors
 import com.app.lokaljobs.presentation.common.SnackbarMessage
 import com.app.lokaljobs.presentation.screens.bookmark.BookmarkScreen
 import com.app.lokaljobs.presentation.screens.details.DetailScreen
 import com.app.lokaljobs.presentation.screens.home.HomeScreen
-import com.app.lokaljobs.ui.theme.Gray
+import com.app.lokaljobs.ui.theme.DarkGray
+import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.OnHighlight
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -172,12 +176,17 @@ fun HandlePagingDataLoadState(
         when {
             loadState.append is LoadState.Error || loadState.refresh is LoadState.Error -> {
                 val message = SnackbarMessage.Filling(
-                    message = "Couldn't fetch jobs",
-                    durationInMs = ((retryCount + 3) * 1000).coerceAtMost(8000),
+                    message = "Fetching Jobs Failed",
+                    durationInMs = ((retryCount + 4) * 1000).coerceAtMost(8000),
                     onFillAction = {
                         retryCount++
                         lazyPagingItems.retry()
-                    }, fillColor = Gray
+                    }, fillColor = OnHighlight,
+                    snackbarColors = SnackbarColors(
+                        messageColor = DarkGray,
+                        actionColor = OnHighlightDark,
+                        background = Highlight
+                    )
                 )
                 snackbarHostState.showSnackbar(
                     message = message,
