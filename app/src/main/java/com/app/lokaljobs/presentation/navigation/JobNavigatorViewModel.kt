@@ -7,28 +7,25 @@ import androidx.paging.cachedIn
 import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.di.JobsModule
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class JobNavigatorViewModel : ViewModel() {
     private val jobsUseCase = JobsModule.JobsUseCase
-    private val isNetworkAvailableUseCase = JobsModule.IsNetworkAvailableUseCase
 
-    val jobsPagingDataFlow: Flow<PagingData<JobEntity>> = jobsUseCase.getJobs()
-        .cachedIn(scope = viewModelScope)
-    val bookmarkedJobs: StateFlow<List<JobEntity>> = jobsUseCase.getBookmarks()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-    val isNetworkAvailable = isNetworkAvailableUseCase().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        false
-    )
+    val jobsPagingDataFlow: Flow<PagingData<JobEntity>> = jobsUseCase.getJobs().cachedIn(viewModelScope)
+    private var _bookmarkedJobs = MutableStateFlow<List<JobEntity>>(emptyList())
+    val bookmarkedJobs: StateFlow<List<JobEntity>> get() = _bookmarkedJobs
+
+    init {
+        jobsUseCase.getBookmarks().onEach { list ->
+            _bookmarkedJobs.update { list }
+        }.launchIn(viewModelScope)
+    }
 
     fun toggleBookmark(job: JobEntity) {
         viewModelScope.launch {
