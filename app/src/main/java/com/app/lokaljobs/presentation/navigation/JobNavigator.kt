@@ -135,7 +135,6 @@ fun JobNavigator(modifier: Modifier = Modifier) {
                     onNavigateToDetails = { job ->
                         navigateToDetails(navController, job)
                     },
-                    onBookmarkClick = viewModel::toggleBookmark
                     onBookmarkClick = viewModel::toggleBookmark,
                     isNetworkAvailable = isNetworkAvailable
                 )
