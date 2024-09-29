@@ -17,6 +17,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -79,6 +80,7 @@ fun JobNavigator(modifier: Modifier = Modifier) {
 
     val bottomScrollBehavior = BottomAppBarDefaults.exitAlwaysScrollBehavior()
     val topScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val isNetworkAvailable by viewModel.isNetworkAvailable.collectAsStateWithLifecycle()
     Scaffold(
         snackbarHost = {
             GenericSnackBarHost(snackbarHostState) { snackbarData ->
@@ -133,7 +135,8 @@ fun JobNavigator(modifier: Modifier = Modifier) {
                     onNavigateToDetails = { job ->
                         navigateToDetails(navController, job)
                     },
-                    onBookmarkClick = viewModel::toggleBookmark
+                    onBookmarkClick = viewModel::toggleBookmark,
+                    isNetworkAvailable = isNetworkAvailable
                 )
             }
 

@@ -23,6 +23,10 @@ import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.common.JobCardList
 import com.app.lokaljobs.presentation.common.PullToRefreshIndicator
 import com.app.lokaljobs.presentation.common.RefreshIndicatorState
+import com.app.lokaljobs.presentation.common.StatusIndicator
+import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.LightGray
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,6 +39,7 @@ fun HomeScreen(
     bookmarkedJobs: List<JobEntity>,
     onNavigateToDetails: (JobEntity) -> Unit,
     onBookmarkClick: (JobEntity) -> Unit,
+    isNetworkAvailable: Boolean
 ) {
 
     var isRefreshing by rememberSaveable {
@@ -72,6 +77,13 @@ fun HomeScreen(
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
+            StatusIndicator(
+                Modifier,
+                !isNetworkAvailable,
+                "Connection Lost",
+                Highlight,
+                OnHighlightDark
+            )
             PullToRefreshIndicator(
                 lastRefreshedAt = lastRefreshedAt,
                 refreshIndicatorState = indicatorState,

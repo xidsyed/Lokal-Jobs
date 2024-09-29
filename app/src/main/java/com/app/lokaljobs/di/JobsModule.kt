@@ -4,8 +4,10 @@ import androidx.room.Room
 import com.app.lokaljobs.Constants.BOOKMARK_DATABASE_NAME
 import com.app.lokaljobs.LokalJobsApplication
 import com.app.lokaljobs.data.local.service.JobDatabase
+import com.app.lokaljobs.data.local.service.NetworkConnectivityService
 import com.app.lokaljobs.data.remote.service.JobService
 import com.app.lokaljobs.data.repository.JobsRepositoryImpl
+import com.app.lokaljobs.domain.IsNetworkAvailableUseCase
 import com.app.lokaljobs.domain.JobsRepository
 import com.app.lokaljobs.domain.JobsUseCase
 import retrofit2.Retrofit
@@ -36,4 +38,7 @@ object JobsModule {
 
     val JobsUseCase: JobsUseCase by lazy { JobsUseCase(JobsRepository) }
 
+    val networkConnectivityService by lazy { NetworkConnectivityService(applicationContext) }
+
+    val IsNetworkAvailableUseCase by lazy { IsNetworkAvailableUseCase(networkConnectivityService) }
 }
