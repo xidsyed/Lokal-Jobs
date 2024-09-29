@@ -23,15 +23,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.app.lokaljobs.ui.theme.DarkGray
-import com.app.lokaljobs.ui.theme.LightGray
+import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 
 @Composable
 fun ScrollToTopButton(
-    isVisible : Boolean,
+    isVisible: Boolean,
+    isDark: Boolean = false,
+    size: Dp = 44.dp,
+    backgroundColor: Color = if (isDark) OnHighlightDark else Highlight,
+    foregroundColor: Color = if (isDark) Highlight else OnHighlightDark,
     onClick: () -> Unit
-){
+) {
     AnimatedVisibility(
         visible = isVisible,
         enter = scaleIn(
@@ -43,10 +47,12 @@ fun ScrollToTopButton(
             animationSpec = tween(250, easing = EaseInExpo)
         )
     ) {
-        Button (
-            isDark = false,
-            size = 44.dp,
-            onClick =  onClick
+        Button(
+            isDark = isDark,
+            size = size,
+            backgroundColor = backgroundColor,
+            foregroundColor = foregroundColor,
+            onClick = onClick
         )
     }
 }
@@ -55,10 +61,10 @@ fun ScrollToTopButton(
 private fun Button(
     modifier: Modifier = Modifier,
     isDark: Boolean = false,
-    size: Dp = 36.dp,
-    backgroundColor: Color = if (isDark) DarkGray else Color.White,
-    foregroundColor: Color = LightGray,
-    onClick : () -> Unit
+    size: Dp = 44.dp,
+    backgroundColor: Color = if (isDark) OnHighlightDark else Highlight,
+    foregroundColor: Color = if (isDark) Highlight else OnHighlightDark,
+    onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
@@ -88,7 +94,12 @@ private fun Button(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, widthDp = 50, heightDp = 50)
 @Composable
 private fun ScrollToTopButtonPreview() {
-    Button(isDark = false , onClick = {})
+    Button(
+        isDark = false,
+        onClick = {},
+        foregroundColor = OnHighlightDark,
+        backgroundColor = Highlight
+    )
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, widthDp = 50, heightDp = 50)

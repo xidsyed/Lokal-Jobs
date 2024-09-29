@@ -32,9 +32,9 @@ import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.data.local.model.JobEntity
 import com.app.lokaljobs.presentation.getDummyJob
 import com.app.lokaljobs.presentation.getTime
+import com.app.lokaljobs.ui.theme.Accent
 import com.app.lokaljobs.ui.theme.DarkGray
 import com.app.lokaljobs.ui.theme.Highlight
-import com.app.lokaljobs.ui.theme.HighlightOverlay
 import com.app.lokaljobs.ui.theme.LightGray
 import com.app.lokaljobs.ui.theme.OnHighlight
 import com.app.lokaljobs.ui.theme.OnHighlightDark
@@ -71,7 +71,7 @@ fun JobCard(
                 horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CompanyIcon()
+                CompanyIcon(highlighted = isHighlighted)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically)
                 ) {
@@ -126,7 +126,7 @@ fun JobCard(
                         id = R.drawable.bookmark_filled_light
                     ),
                     tint = if (isBookmarked) {
-                        DarkGray
+                        Accent
                     } else {
                         if (isHighlighted) OnHighlight
                         else Color.LightGray
@@ -223,18 +223,18 @@ fun JobCard(
 }
 
 @Composable
-fun CompanyIcon(modifier: Modifier = Modifier) {
+fun CompanyIcon(modifier: Modifier = Modifier, highlighted: Boolean) {
     // TODO: get enum and display icon
     Box(
         modifier = modifier
             .requiredSize(size = 36.dp)
             .clip(shape = CircleShape)
-            .background(color = HighlightOverlay),
+            .background(color = Color.Unspecified),
         contentAlignment = Alignment.Center
     ) {
         Icon(
             painter = painterResource(id = R.drawable.icon_place),
-            tint = OnHighlightDark,
+            tint = if (highlighted) OnHighlightDark else DarkGray,
             contentDescription = "Icon",
             modifier = Modifier
                 .clip(shape = CircleShape)
