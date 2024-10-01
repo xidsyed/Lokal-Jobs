@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.presentation.DummyBookmarkJobCardList
 import com.app.lokaljobs.presentation.formatElapsedTime
 import com.app.lokaljobs.ui.theme.Highlight
-import com.app.lokaljobs.ui.theme.LightGray
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 import kotlinx.coroutines.delay
@@ -59,8 +58,9 @@ fun PullToRefreshIndicator(
     pullToRefreshProgress: Float,
     maxHeight: Int = 140,
     animationDuration: Int = 250,
-    backgroundColor: Color = Color.Unspecified,
-    contentColor: Color = LightGray
+    backgroundColor: Color = Highlight,
+    contentColor: Color = OnHighlightDark,
+    shimmerColor: Color = Color.White
 ) {
     Box(
         modifier = modifier
@@ -171,7 +171,7 @@ fun PullToRefreshIndicator(
                     durationMillis = 600,
                     delayMillis = 200,
                     color = textStyle.color,
-                    shimmerColor = Color.White,
+                    shimmerColor = shimmerColor,
                     style = textStyle,
                     modifier = Modifier
                         .padding(start = 12.dp)

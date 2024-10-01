@@ -8,14 +8,13 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -32,10 +31,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.app.lokaljobs.presentation.navigation.Route
-import com.app.lokaljobs.ui.theme.Accent
 import com.app.lokaljobs.ui.theme.DarkGray
+import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 
 
@@ -46,9 +47,9 @@ fun NavigatorTopBar(
     route: Route,
     scrollBehaviour: TopAppBarScrollBehavior? = null
 ) {
+    val topAppBarColor = if (route is Route.HomeScreen) Highlight else Color.White
     TopAppBar(
         modifier = modifier
-            .background(Color.White)
             .padding(vertical = 0.dp)
             .fillMaxWidth(),
         scrollBehavior = scrollBehaviour,
@@ -93,12 +94,13 @@ fun NavigatorTopBar(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.lokal_logo),
+                            Icon(
+                                painter = painterResource(id = R.drawable.lokal),
+                                tint = OnHighlightDark,
                                 contentDescription = "Lokal Icon",
                                 modifier = Modifier.requiredSize(size = 30.dp)
                             )
-                            Text(lineHeight = 1.sp, text = buildAnnotatedString {
+                            Text(lineHeight = 1.em, text = buildAnnotatedString {
                                 withStyle(
                                     style = SpanStyle(
                                         color = DarkGray,
@@ -108,7 +110,7 @@ fun NavigatorTopBar(
                                 ) { append("Lokal ") }
                                 withStyle(
                                     style = SpanStyle(
-                                        color = Accent,
+                                        color = OnHighlightDark,
                                         fontSize = 36.sp,
                                         fontWeight = FontWeight.ExtraBold
                                     )
@@ -134,23 +136,23 @@ fun NavigatorTopBar(
             }
         },
         colors = TopAppBarDefaults.topAppBarColors().copy(
-            containerColor = Color.White,
-            scrolledContainerColor = Color.White,
-            titleContentColor = Color.White
+            containerColor = topAppBarColor,
+            scrolledContainerColor = topAppBarColor,
+            titleContentColor = topAppBarColor
         )
     )
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun TopAppBarPreview() {
     NavigatorTopBar(route = Route.BookmarkScreen, scrollBehaviour = null)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun TopAppBarHomeScreenPreview() {
     NavigatorTopBar(route = Route.HomeScreen, scrollBehaviour = null)

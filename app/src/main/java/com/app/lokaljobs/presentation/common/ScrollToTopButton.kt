@@ -32,10 +32,10 @@ fun ScrollToTopButton(
     isVisible: Boolean,
     isDark: Boolean = false,
     size: Dp = 44.dp,
-    backgroundColor: Color = if (isDark) OnHighlightDark else Highlight,
-    foregroundColor: Color = if (isDark) Highlight else OnHighlightDark,
     onClick: () -> Unit
 ) {
+    val backgroundColor: Color = if (isDark) OnHighlightDark else Highlight
+    val foregroundColor: Color = if (isDark) Highlight else OnHighlightDark
     AnimatedVisibility(
         visible = isVisible,
         enter = scaleIn(
@@ -48,7 +48,6 @@ fun ScrollToTopButton(
         )
     ) {
         Button(
-            isDark = isDark,
             size = size,
             backgroundColor = backgroundColor,
             foregroundColor = foregroundColor,
@@ -60,10 +59,9 @@ fun ScrollToTopButton(
 @Composable
 private fun Button(
     modifier: Modifier = Modifier,
-    isDark: Boolean = false,
     size: Dp = 44.dp,
-    backgroundColor: Color = if (isDark) OnHighlightDark else Highlight,
-    foregroundColor: Color = if (isDark) Highlight else OnHighlightDark,
+    backgroundColor: Color,
+    foregroundColor: Color,
     onClick: () -> Unit
 ) {
     Box(
@@ -94,16 +92,19 @@ private fun Button(
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, widthDp = 50, heightDp = 50)
 @Composable
 private fun ScrollToTopButtonPreview() {
-    Button(
+    ScrollToTopButton(
         isDark = false,
+        isVisible = true,
         onClick = {},
-        foregroundColor = OnHighlightDark,
-        backgroundColor = Highlight
     )
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, widthDp = 50, heightDp = 50)
 @Composable
 private fun ScrollToTopButtonDarkPreview() {
-    Button(isDark = true, onClick = {})
+    ScrollToTopButton(
+        isDark = true,
+        isVisible = true,
+        onClick = {},
+    )
 }

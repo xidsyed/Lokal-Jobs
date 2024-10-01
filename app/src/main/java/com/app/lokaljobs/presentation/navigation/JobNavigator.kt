@@ -55,14 +55,14 @@ fun JobNavigator(modifier: Modifier = Modifier) {
 
     val bottomNavigationItems = listOf(
         BottomNavigationItem(
-            icon = R.drawable.icon_experience,
-            iconSelected = R.drawable.icon_experience,
+            icon = R.drawable.work_outline,
+            iconSelected = R.drawable.work_filled,
             label = "Jobs",
             destination = Route.HomeScreen
         ),
         BottomNavigationItem(
-            icon = R.drawable.bookmark_unselected,
-            iconSelected = R.drawable.bookmark_filled_dark,
+            icon = R.drawable.bookmark_tab_unfilled,
+            iconSelected = R.drawable.bookmark_tab_filled,
             label = "Bookmarks",
             destination = Route.BookmarkScreen
         ),

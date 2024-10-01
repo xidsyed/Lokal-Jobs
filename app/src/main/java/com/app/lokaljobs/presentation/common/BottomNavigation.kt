@@ -18,10 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.app.lokaljobs.Dimens
 import com.app.lokaljobs.presentation.navigation.Route
-import com.app.lokaljobs.ui.theme.Background
-import com.app.lokaljobs.ui.theme.Gray
 import com.app.lokaljobs.ui.theme.Highlight
 import com.app.lokaljobs.ui.theme.LokalJobsTheme
+import com.app.lokaljobs.ui.theme.OnHighlight
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 import com.cinderella.lokaljobs.R
 
@@ -37,7 +36,7 @@ fun BottomNavigation(
 ) {
     BottomAppBar(
         modifier = modifier.fillMaxWidth(),
-        containerColor = Background,
+        containerColor = Highlight,
         scrollBehavior = scrollBehavior
     ) {
         items.forEachIndexed { index, item ->
@@ -50,6 +49,7 @@ fun BottomNavigation(
                     Icon(
                         painterResource(id = if (isSelected) item.iconSelected else item.icon),
                         contentDescription = null,
+                        tint = OnHighlightDark,
                         modifier = Modifier.size(Dimens.NavIconSize)
                     )
                 },
@@ -61,10 +61,10 @@ fun BottomNavigation(
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = OnHighlightDark,
-                    unselectedIconColor = Gray,
+                    unselectedIconColor = OnHighlightDark,
                     selectedTextColor = OnHighlightDark,
-                    unselectedTextColor = Gray,
-                    indicatorColor = Highlight
+                    unselectedTextColor = OnHighlightDark,
+                    indicatorColor = OnHighlight
                 )
             )
         }
@@ -78,14 +78,14 @@ fun BottomNavigationPreview() {
     LokalJobsTheme {
         BottomNavigation(items = listOf(
             BottomNavigationItem(
-                icon = R.drawable.icon_experience,
-                iconSelected = R.drawable.icon_experience,
+                icon = R.drawable.work_outline,
+                iconSelected = R.drawable.work_filled,
                 label = "Jobs",
                 destination = Route.HomeScreen
             ),
             BottomNavigationItem(
-                icon = R.drawable.bookmark_unselected,
-                iconSelected = R.drawable.bookmark_filled_dark,
+                icon = R.drawable.bookmark_tab_unfilled,
+                iconSelected = R.drawable.bookmark_tab_filled,
                 label = "Bookmarks",
                 destination = Route.BookmarkScreen,
             ),

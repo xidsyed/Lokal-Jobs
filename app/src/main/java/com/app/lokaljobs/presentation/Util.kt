@@ -7,7 +7,9 @@ import com.app.lokaljobs.presentation.common.BookmarkJobCardList
 import com.app.lokaljobs.presentation.common.BottomNavigationItem
 import com.app.lokaljobs.presentation.navigation.Route
 import com.cinderella.lokaljobs.R
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.util.Currency
 import java.util.Locale
 import java.util.concurrent.TimeUnit.DAYS
 import java.util.concurrent.TimeUnit.HOURS
@@ -68,18 +70,39 @@ fun getDummyJob() = JobEntity(
 
 fun getDummyBottomNavigationList(): List<BottomNavigationItem> = listOf(
     BottomNavigationItem(
-        icon = R.drawable.icon_experience,
-        iconSelected = R.drawable.icon_experience,
+        icon = R.drawable.work_outline,
+        iconSelected = R.drawable.work_filled,
         label = "Jobs",
         destination = Route.HomeScreen
     ),
     BottomNavigationItem(
-        icon = R.drawable.bookmark_dark,
-        iconSelected = R.drawable.bookmark_filled_dark,
+        icon = R.drawable.bookmark_tab_unfilled,
+        iconSelected = R.drawable.bookmark_tab_filled,
         label = "Bookmarks",
         destination = Route.BookmarkScreen
     ),
 )
+
+
+fun JobEntity.formattedSalary(): String {
+    val minSalary = minSalary ?: 0
+    val maxSalary = maxSalary ?: 0
+
+    val indianNumberFormat =
+        NumberFormat.getCurrencyInstance(Locale("en", "IN")).apply { maximumFractionDigits = 0 }
+    indianNumberFormat.currency = Currency.getInstance("INR")// Set currency to INR
+
+    val formattedMinSalary =
+        indianNumberFormat.format(minSalary).replace("₹", "") // Remove rupee symbol
+    val formattedMaxSalary =
+        indianNumberFormat.format(maxSalary).replace("₹", "") // Remove rupee symbol
+
+    return if (minSalary == maxSalary) {
+        formattedMinSalary
+    } else {
+        "$formattedMinSalary - $formattedMaxSalary"
+    }
+}
 
 @Composable
 fun DummyBookmarkJobCardList() {
