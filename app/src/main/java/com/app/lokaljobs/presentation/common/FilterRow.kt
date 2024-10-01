@@ -25,7 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.app.lokaljobs.ui.theme.DarkGray
-import com.app.lokaljobs.ui.theme.Highlight
+import com.app.lokaljobs.ui.theme.Gray
+import com.app.lokaljobs.ui.theme.OnHighlight
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 
 
@@ -66,9 +67,9 @@ fun FilterRow(filterList: List<String>, selected: Int, modifier: Modifier = Modi
                 shape = RoundedCornerShape(8.dp),
                 colors = FilterChipDefaults.filterChipColors(
                     containerColor = Color.Transparent,
-                    iconColor = DarkGray,
-                    labelColor = DarkGray,
-                    selectedContainerColor = Highlight,
+                    iconColor = Gray,
+                    labelColor = Gray,
+                    selectedContainerColor = OnHighlight,
                     selectedLabelColor = OnHighlightDark,
                     selectedLeadingIconColor = OnHighlightDark
                 ),

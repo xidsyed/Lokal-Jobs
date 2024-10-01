@@ -25,7 +25,6 @@ import com.app.lokaljobs.presentation.common.PullToRefreshIndicator
 import com.app.lokaljobs.presentation.common.RefreshIndicatorState
 import com.app.lokaljobs.presentation.common.StatusIndicator
 import com.app.lokaljobs.ui.theme.Highlight
-import com.app.lokaljobs.ui.theme.LightGray
 import com.app.lokaljobs.ui.theme.OnHighlightDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -87,7 +86,8 @@ fun HomeScreen(
             PullToRefreshIndicator(
                 lastRefreshedAt = lastRefreshedAt,
                 refreshIndicatorState = indicatorState,
-                pullToRefreshProgress = state.distanceFraction
+                pullToRefreshProgress = state.distanceFraction,
+                shimmerColor = Highlight
             )
             JobCardList(
                 jobItems = jobItems,
