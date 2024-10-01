@@ -27,26 +27,28 @@
 # 🌟 Additional Features
 Due to time constraints, many additonal key features could not be added within the time limit:
 
-- [x] *Cleaner* Clean Architecture ✅
-- [x] Better separation of Domain and Data Layer ✅
+- [x] *Cleaner* Clean Architecture ✅ [9926cd2](https://github.com/xidsyed/Lokal-Jobs/commit/9926cd29abcc4ad314bb5d2b4f3cc42d85b616f5)
+- [x] Better separation of Domain and Data Layer ✅ [e370f44](https://github.com/xidsyed/Lokal-Jobs/commit/e370f44a248c2beac4a8068eaa124915befceff3)
 
   Might be overkill for a small project, but enhances code readability and testability
 
-- [ ] Page Loading Indicator
+- [X] Page Loading Indicator ✅ [#3](https://github.com/xidsyed/Lokal-Jobs/issues/3)
 
   When reaching the eend of the page fetched from the paging source, there is a delay between in retreving the next page. A progreess indicator would indicate that the end of the list hasn't been reached yet.
 
-- [ ] Retry Snackbar on Connection Failure
+- [X] Retry Snackbar on Connection Failure ✅ [#8](https://github.com/xidsyed/Lokal-Jobs/pull/8)
 
   Currently there is no way to retry when the pagingsource fails to load a page due to say, network issues.
 
-- [ ] Connection Lost Snackbar
+- [x] Connection Lost Indicator ✅[#12](https://github.com/xidsyed/Lokal-Jobs/pull/12)
 
   There is no indication when the internet connection is lost. Bad UX
 
-- [ ] Improved Descriptions Page
+- [x] Improved Descriptions Page ✅ [#15](https://github.com/xidsyed/Lokal-Jobs/pull/15)
 
   Languages Suppoort, Display Media, Better formatting of content
+
+- [ ] Navigation and Interaction animations (under progress) 
 
 - [ ] Category Icons
 
@@ -64,7 +66,7 @@ Due to time constraints, many additonal key features could not be added within t
 
 - UI built with Jetpack Compose.
 - A single-activity architecture with Compose Navigation.
-- A presentation layer that contains several Compose Screens and a ViewModel.
+- A presentation layer that contains several Compose Screens and a ViewModel based on the MVVM design pattern.
 - Reactive UIs using Flow and coroutines for asynchronous operations.
 - Follows Uni-Directional Data Flow Principles
 - A data layer with a repository and two data sources (local using Room and remote using the provided test api).
@@ -86,19 +88,23 @@ Due to time constraints, many additonal key features could not be added within t
 <br><br>
 # ✨ Showcase
 
-| ![](https://i.imgur.com/JbePGrV.png)<br><br> | ![](https://i.imgur.com/njYV3Gi.png)<br> |
+| ![](https://i.imgur.com/GP8Iewj.jpeg)<br><br> | ![](https://i.imgur.com/p7nu7us.jpeg)<br> |
 | -------------------------------------------- | ---------------------------------------- |
-| ![](https://i.imgur.com/me2nAQS.jpeg)<br>    |                                          |
+| ![](https://i.imgur.com/aM3NhzI.jpeg)<br>    | ![](https://i.imgur.com/Thx8DGV.png)                                        |
 | <br>                                         |                                          |
 
 <br><br>
 ## 🎥 Video
 
-https://github.com/user-attachments/assets/1858ce88-408c-46bd-8425-478c79d3d5e6
+
+https://github.com/user-attachments/assets/63786430-9fdb-4db8-b0cd-eb731f1461a8
+
+
 
 
 <br><br>
-# 📃 Development Journey 
+# 📃 Development Journey
+This assignment was developed and submitted in 2 days time. I followed the action plan below:
 - [x] Fimga Designs ~ 6hrs
     - [x] JobCard
     - [x] Home Screen
@@ -124,9 +130,10 @@ https://github.com/user-attachments/assets/1858ce88-408c-46bd-8425-478c79d3d5e6
 
 <br><br>
 # 📦 Design Assets
-![|350](https://i.imgur.com/G8mKcgJ.jpeg)
+#### [Figma file](docs/LokalJobDesign.fig)
+![image|350](https://github.com/user-attachments/assets/a6b9988d-8ee0-4eac-b803-d454f75b6b16)
+![image|350](https://github.com/user-attachments/assets/deaaba5d-0bd0-4409-92b7-f344054abd10)
 
-- [Figma file](docs/LokalJobDesign.fig)
 
 <br><br>
 ## 💭 Thoughts
