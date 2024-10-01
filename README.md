@@ -12,6 +12,7 @@
 <br><br>
 # 🫡 Base Requirements
 
+Based on the [google doc](https://docs.google.com/document/d/15xNYhM_sHMRwejGfyYDnRxg9TVnDJu-FhHXgJuZcYjM/edit) shared
 
 - [x] Bottom Nav > Jobs and Bookmarks ✅
 - [x] Jobs Screeen ✅
