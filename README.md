@@ -1,13 +1,39 @@
 ## Table of Contents
-1. [Base Requirements](#-base-requirements)
-2. [Additional Features](#-additional-features)
-3. [Key Architecture Features](#-key-architecture-features)
-4. [Decisions](#-decisions)
-5. [Showcase](#-showcase)
-6. [Video](#-video)
-7. [Development Journey](#-development-journey)
-8. [Design Assets](#-design-assets)
-9. [Thoughts](#-thoughts)
+
+1. [Getting Started](#getting-started)
+2. [Base Requirements](#-base-requirements)
+3. [Additional Features](#-additional-features)
+4. [Key Architecture Features](#-key-architecture-features)
+5. [Decisions](#-decisions)
+6. [Showcase](#-showcase)
+7. [Video](#-video)
+8. [Development Journey](#-development-journey)
+9. [Design Assets](#-design-assets)
+10. [Thoughts](#-thoughts)
+
+# Getting Started
+
+## Building a Release Version
+
+- To build the app in release mode you need to sign it with a signing key.
+- Use a your keystore file / or create a new one using android studio, and add a new key to it.
+- Create a local.properties file in the root of your project directory (next to build.gradle.kts)
+  and add your keystore details:
+
+```ini
+# local.properties
+storeFile=C:\\path\\to\\your\\keystore.jks
+storePassword=your_store_password
+keyAlias=your_key_alias
+keyPassword=your_key_password
+```
+
+This file should not be included in version control. Ensure that your .gitignore includes:
+
+```bash
+# .gitignore
+local.properties
+```
 
 <br><br>
 # 🫡 Base Requirements
@@ -15,7 +41,7 @@
 Based on the [google doc](https://docs.google.com/document/d/15xNYhM_sHMRwejGfyYDnRxg9TVnDJu-FhHXgJuZcYjM/edit) shared
 
 - [x] Bottom Nav > Jobs and Bookmarks ✅
-- [x] Jobs Screeen ✅
+- [x] Jobs Screen ✅
     - [x] Paginated Data from the Endpoint  |  **ASSUMPTION : No persistence necessary**
     - [x] Each card > Title, Location, Salary, Phone Data 
     - [x] Clicking on a card > Card Screen 
@@ -26,7 +52,8 @@ Based on the [google doc](https://docs.google.com/document/d/15xNYhM_sHMRwejGfyY
 <br><br>
 
 # 🌟 Additional Features
-Due to time constraints, many additonal key features could not be added within the time limit:
+
+Due to time constraints, many additional key features could not be added within the time limit:
 
 - [x] *Cleaner* Clean Architecture ✅ [9926cd2](https://github.com/xidsyed/Lokal-Jobs/commit/9926cd29abcc4ad314bb5d2b4f3cc42d85b616f5)
 - [x] Better separation of Domain and Data Layer ✅ [e370f44](https://github.com/xidsyed/Lokal-Jobs/commit/e370f44a248c2beac4a8068eaa124915befceff3)
