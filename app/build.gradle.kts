@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,6 +9,22 @@ plugins {
 }
 
 android {
+
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { localProperties.load(it) }
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(localProperties.getProperty("storeFile") ?: "")
+            storePassword = localProperties.getProperty("storePassword") ?: ""
+            keyAlias = localProperties.getProperty("keyAlias") ?: ""
+            keyPassword = localProperties.getProperty("keyPassword") ?: ""
+        }
+    }
+
     namespace = "com.cinderella.lokaljobs"
     compileSdk = 34
 
@@ -30,6 +48,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
+            applicationIdSuffix = "lokaljobs"
+            versionNameSuffix = "v"
         }
     }
     compileOptions {
