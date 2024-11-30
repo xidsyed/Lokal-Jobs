@@ -76,12 +76,14 @@ fun JobCard(
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.weight(1f, true)
             ) {
                 CompanyIcon()
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-                    horizontalAlignment = Alignment.Start
+                    horizontalAlignment = Alignment.Start,
+                    modifier = Modifier.weight(1f, true)
                 ) {
                     Text(
                         text = job.category,
